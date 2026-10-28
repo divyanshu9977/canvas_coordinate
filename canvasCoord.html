@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    canvas {
+        background-color: antiquewhite;
+        border: 1px solid black;
+        box-shadow: 0px 4px 10px black;
+    }
+</style>
+<body>
+    <h1>Coordinate Finder in Canvas</h1>
+    <canvas id="mycanvas" width="400" height="200"></canvas>
+    <br></br>
+    <button id="clearBtn">Clear Canvas</button>
+    <div id="coordinates">
+        X : 0, Y : 0
+    </div>
+
+    <script>
+        let canvas = document.getElementById("mycanvas");
+        const ctx = canvas.getContext("2d");
+        let clearBtn = document.getElementById("clearBtn");
+        let coord = document.getElementById("coordinates");
+
+        canvas.addEventListener("click", function(event){
+            const rect = canvas.getBoundingClientRect();
+
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+
+            coord.innerText = "X : " + Math.round(x) + " Y : " + Math.round(y);
+
+            ctx.fillStyle = "red";
+
+            ctx.fillRect(x-5, y-5, 10, 10);
+        });
+
+        clearBtn.addEventListener("click", function(){
+            ctx.clearRect(
+                0,
+                0,
+                canvas.width,
+                canvas.height
+            );
+
+            coord.innerText = "X : 0, Y : 0";
+        })
+    </script>
+</body>
+</html>
